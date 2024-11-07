@@ -1,11 +1,21 @@
 const express = require("express");
 const app = express();
-const add = require("./math");
+const mysql = require("mysql");
+const { add, mul } = require("./math");
 require("dotenv").config();
 
 const port = process.env.port;
 
-console.log(add(4, 4));
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "b35",
+});
+
+if (connection) {
+  console.log("connection succesfull");
+}
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "this is get route" });
