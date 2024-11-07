@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
+const add = require("./math");
 require("dotenv").config();
 
 const port = process.env.port;
+
+console.log(add(4, 4));
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "this is get route" });
