@@ -38,7 +38,7 @@ app.put("/update/:id", (req, res) => {
   const { name, age, status } = req.body;
   const { id } = req.params;
   db.query(
-    `update student set name='${name}','${age}','${status}' where id=${id}`,
+    `update student set name='${name}',age='${age}',status='${status}' where id=${id}`,
     (err, result) => {
       if (err) return res.status(400).json({ message: err });
       res.status(201).json({ message: "profile updated" });
@@ -50,7 +50,7 @@ app.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
   db.query(`delete from student where id=${id}`, (err, result) => {
     if (err) return res.status(400).json({ message: err });
-    res.status(201).json({ message: "profile updated" });
+    res.status(201).json({ message: "profile deleted" });
   });
 });
 
