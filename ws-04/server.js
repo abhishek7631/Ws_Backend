@@ -25,13 +25,36 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/:id", (req, res) => {
+  const { id } = req.params;
+  const q = `select * from blog where id=${id}`;
+  db.query(q, (err, result) => {
+    if (err) return res.status(400).json({ message: err });
+
+    res.status(200).json(result);
+  });
+});
+
 app.post("/add", (req, res) => {
   const { title, description, image } = req.body;
-  const q = `insert into blog (title,description,image) values (`${title})`;
+  const q = `insert into blog (title,description,image) values ('${title}','${description}','${image}')`;
+  db.query(q, (err, result) => {
+    if (err) return res.status(400).json({ message: err });
+
+    res.status(200).json({ message: "blog has been added successfully" });
+  });
 });
 
 app.put("/update/:id", (req, res) => {
-  res.status(200).json({ message: "This is put rote" });
+  const { id } = req.params;
+  const { title, description, image } = req.body;
+  const q = `update blog set title='${title}',description='${description}', '${image}' where id='${id}'`;
+
+  db.query(q, (err, result) => {
+    if (err) return res.status(400).json({ message: err });
+
+    res.status(200).json({ message: "blog has been added successfully" });
+  });
 });
 
 app.delete("/delete/:id", (req, res) => {
