@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 export default function Home() {
   const [blog, setBlog] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5173/")
+      .get("http://localhost:5000/")
       .then((res) => setBlog(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div>
-      <h1>This is the Home Page</h1>
       <div>
         {blog.map((item, index) => (
           <div
@@ -25,14 +25,16 @@ export default function Home() {
             }}
           >
             <h2>{item.title}</h2>
+            <img
+              src={item.image}
+              alt={item.title}
+              style={{ width: "100%", maxWidth: "400px", height: "auto" }}
+            />
             <p>{item.description}</p>
-            {item.image && (
-              <img
-                src={item.image}
-                alt={item.title}
-                style={{ width: "100%", maxWidth: "400px", height: "auto" }}
-              />
-            )}
+            <Button className="me-2" variant="info">
+              Update
+            </Button>
+            <Button variant="danger">Delete</Button>
           </div>
         ))}
       </div>
