@@ -12,6 +12,15 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete("http://localhost:5000/delete/" + id);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -34,7 +43,14 @@ export default function Home() {
             <Button className="me-2" variant="info">
               Update
             </Button>
-            <Button variant="danger">Delete</Button>
+            <Button
+              variant="danger"
+              onClick={(e) => {
+                handleDelete(item.id);
+              }}
+            >
+              Delete
+            </Button>
           </div>
         ))}
       </div>
