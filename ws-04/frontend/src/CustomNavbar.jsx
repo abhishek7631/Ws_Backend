@@ -13,7 +13,7 @@ function CustomNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link href="#add">
+            <Nav.Link href="/add">
               <Button variant="primary">Add Blog</Button>
             </Nav.Link>
           </Nav>
