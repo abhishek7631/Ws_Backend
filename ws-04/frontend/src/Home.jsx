@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [blog, setBlog] = useState([]);
@@ -40,9 +41,9 @@ export default function Home() {
               style={{ width: "100%", maxWidth: "400px", height: "auto" }}
             />
             <p>{item.description}</p>
-            <Button className="me-2" variant="info">
+            <Link to={`/update/${item.id}`} className="btn btn-primary me-2">
               Update
-            </Button>
+            </Link>
             <Button
               variant="danger"
               onClick={(e) => {
