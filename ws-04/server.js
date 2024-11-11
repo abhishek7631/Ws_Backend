@@ -2,12 +2,14 @@ const express = require("express");
 const { createConnection } = require("mysql");
 const app = express();
 const mysql = require("mysql");
+const cors = require("cors");
 
 require("dotenv").config();
 
 const port = process.env.port;
 
 app.use(express.json());
+app.use(cors());
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -58,7 +60,13 @@ app.put("/update/:id", (req, res) => {
 });
 
 app.delete("/delete/:id", (req, res) => {
-  res.status(200).json({ message: "This is delete rote" });
+  const { id } = req.params;
+  const q = `delete from blog where id='${id}'`;
+  db.query(q, (err, result) => {
+    if (err) return res.status(400).json({ message: err });
+
+    res.status(200).json({ message: "blog has been deleted successfully" });
+  });
 });
 
 app.listen(port, () => {
