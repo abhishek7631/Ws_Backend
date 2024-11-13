@@ -1,10 +1,20 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
 
 const app = express();
 
 require("dotenv").config();
 
 const port = process.env.port;
+
+mongoose
+  .connect("mongodb://localhost:27017/wsDemo")
+  .then(() => {
+    console.log("database has been connected");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.get("/", (req, res) => {
   try {
@@ -22,7 +32,7 @@ app.post("/add", (req, res) => {
   }
 });
 
-app.put("/update", (re, res) => {
+app.put("/update/:id", (re, res) => {
   try {
     res.status(200).json({ message: "this is upadte route" });
   } catch (error) {
@@ -30,7 +40,7 @@ app.put("/update", (re, res) => {
   }
 });
 
-app.delete("/delete", (req, res) => {
+app.delete("/delete/:id", (req, res) => {
   try {
     res.status(200).json({ message: "this is delete route" });
   } catch (error) {
