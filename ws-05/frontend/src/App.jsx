@@ -5,6 +5,7 @@ import Register from "./Register";
 import Nav from "./Nav";
 import Home from "./Home";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "./Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
+      <Footer></Footer>
     </>
   );
 }
