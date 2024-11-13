@@ -8,7 +8,7 @@ require("dotenv").config();
 const port = process.env.port;
 
 mongoose
-  .connect("mongodb://localhost:27017/wsDemo")
+  .connect("mongodb://localhost:27017/student")
   .then(() => {
     console.log("database has been connected");
   })
@@ -16,33 +16,45 @@ mongoose
     console.log(err);
   });
 
-app.get("/", (req, res) => {
+const studentSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+});
+
+const Student = mongoose.model("Student", studentSchema);
+
+app.use(express.json());
+
+app.get("/", async (req, res) => {
   try {
-    res.status(200).json({ message: "running get route" });
+    const student = await Student.find();
+    res.status(200).json({ student });
   } catch (error) {
     res.status(400).json({ message: error });
   }
 });
 
-app.post("/add", (req, res) => {
+app.post("/register", async (req, res) => {
+  const { name, email, password } = req.body;
   try {
-    res.status(200).json({ message: "this is add route" });
+    const student = await Student.create({ name, email, password });
+    res.status(201).json({ message: "Registration successfull" });
   } catch (error) {
     res.status(400).json({ message: error });
   }
 });
 
-app.put("/update/:id", (re, res) => {
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
   try {
-    res.status(200).json({ message: "this is upadte route" });
-  } catch (error) {
-    res.status(400).json({ message: error });
-  }
-});
+    const student = await Student.findOne({ email });
 
-app.delete("/delete/:id", (req, res) => {
-  try {
-    res.status(200).json({ message: "this is delete route" });
+    if (password == student.password) {
+      return res.status(200).json({ message: "login successfull" });
+    } else {
+      return res.status(400).json({ message: "Wrong password or email" });
+    }
   } catch (error) {
     res.status(400).json({ message: error });
   }
