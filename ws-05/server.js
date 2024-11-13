@@ -1,11 +1,15 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 
 require("dotenv").config();
 
 const port = process.env.port;
+
+app.use(express.json());
+app.use(cors());
 
 mongoose
   .connect("mongodb://localhost:27017/student")
@@ -23,8 +27,6 @@ const studentSchema = new mongoose.Schema({
 });
 
 const Student = mongoose.model("Student", studentSchema);
-
-app.use(express.json());
 
 app.get("/", async (req, res) => {
   try {
