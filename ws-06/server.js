@@ -32,6 +32,16 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await Blog.findById(id);
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
 app.post("/add", async (req, res) => {
   const { title, para } = req.body;
   try {
