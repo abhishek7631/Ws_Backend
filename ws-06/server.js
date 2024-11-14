@@ -43,6 +43,16 @@ app.post("/add", async (req, res) => {
   }
 });
 
+app.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const blog = await Blog.findByIdAndDelete(id);
+    res.status(200).json({ message: "Blog has been deleted" });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
 app.listen(port, () => {
   console.log(`server is listining on port ${port}`);
 });
