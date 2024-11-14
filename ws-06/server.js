@@ -43,6 +43,17 @@ app.post("/add", async (req, res) => {
   }
 });
 
+app.put("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, para } = req.body;
+  try {
+    const blog = await Blog.findByIdAndUpdate(id, { title, para });
+    res.status(200).json({ message: "Blog has been Updated" });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
 app.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
