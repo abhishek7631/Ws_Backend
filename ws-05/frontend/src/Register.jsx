@@ -12,7 +12,7 @@ export default function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:8181/create", { name, email, age, status })
+      .post("http://localhost:4041/register", { name, email, password })
       .then((res) => {
         console.log(res);
         navigate("/");

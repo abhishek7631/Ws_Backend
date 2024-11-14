@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,7 +11,7 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:8181/create", { name, email, age, status })
+      .post("http://localhost:4041/login", { email, password })
       .then((res) => {
         console.log(res);
         navigate("/");
