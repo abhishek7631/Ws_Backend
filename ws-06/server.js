@@ -1,10 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dontev = require("dotenv");
+const cors = require("cors");
 const app = express();
 
 dontev.config();
+
 app.use(express.json());
+app.use(cors());
+
 const port = process.env.port;
 
 mongoose
