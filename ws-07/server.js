@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
 
 app.use(express.json());
 
@@ -29,7 +30,9 @@ const User = mongoose.model("User", userSchema);
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    const user = await User.create({ username, email, password });
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({ username, email, password: hashPassword });
     res.status(200).json({ message: "Registration Successfull" });
   } catch (error) {
     res.status(400).json({ message: error });
