@@ -1,18 +1,13 @@
 const express = require("express");
 const { model } = require("mongoose");
+const { getAlluser, register, login } = require("../controllers/user");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({ message: "this is get route" });
-});
+router.get("/", getAlluser);
 
-router.post("/register", (req, res) => {
-  res.status(200).json({ message: "this is get route" });
-});
+router.post("/register", register);
 
-router.post("/login", (req, res) => {
-  res.status(200).json({ message: "this is get route" });
-});
+router.post("/login", login);
 
 module.exports = router;
