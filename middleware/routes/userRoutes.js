@@ -1,21 +1,16 @@
 const express = require("express");
+const {
+  getAllUser,
+  register,
+  login,
+} = require("../controllers/userControllers");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({ message: "This is get route" });
-});
+router.get("/", getAllUser);
 
-router.post("/add", (req, res) => {
-  res.status(200).json({ message: "this is add route" });
-});
+router.post("/register", register);
 
-router.post("/register", (req, res) => {
-  res.status(200).json({ message: "this is register route" });
-});
-
-router.post("/login", (req, res) => {
-  res.status(200).json({ message: "this is login route" });
-});
+router.post("/login", login);
 
 module.exports = router;
