@@ -32,7 +32,17 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, "secretkey");
 
-    res.json({ message: "login successfull" });
+    res.json({ token, message: "login successfull" });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+exports.auth = (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decode = jwt.verify(token, "secretkey");
+    res.json(decode);
   } catch (error) {
     res.status(400).json({ message: error });
   }
