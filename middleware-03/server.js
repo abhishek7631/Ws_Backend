@@ -9,6 +9,7 @@ dotenv.config();
 
 const port = process.env.port;
 
+app.use(express.json());
 app.use("/api", userRoute);
 
 app.listen(port, () => {
