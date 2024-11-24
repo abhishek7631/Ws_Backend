@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign(options, process.env.secret_key);
 
-    res.status(400).json({ message: "Login Successfull", token });
+    res.status(200).json({ message: "Login Successfull", token });
   } catch (error) {
     res.status(400).json({ message: error });
   }
