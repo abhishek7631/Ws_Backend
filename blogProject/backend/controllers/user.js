@@ -38,21 +38,15 @@ exports.login = async (req, res) => {
     if (!compare)
       return res.status(400).json({ message: "wrong email or password" });
 
-    const token = jwt.sign({ id: user._id }, "secretkey");
+    const options = {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    };
+
+    const token = jwt.sign(options, process.env.secret_key);
 
     res.status(400).json({ message: "Login Successfull", token });
-  } catch (error) {
-    res.status(400).json({ message: error });
-  }
-};
-
-exports.auth = (req, res) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-
-    const decode = jwt.verify(token, "secretkey");
-
-    res.json(decode);
   } catch (error) {
     res.status(400).json({ message: error });
   }
