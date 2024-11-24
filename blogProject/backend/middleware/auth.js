@@ -8,6 +8,28 @@ exports.auth = (req, res, next) => {
 
     const decode = jwt.verify(token, process.env.secret_key);
 
+    req.user = decode;
+
+    next();
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+exports.isAdmin = (req, res, next) => {
+  try {
+    if (req.user !== "Admin")
+      return res.status(400).json({ message: "You are unauthorized person" });
+    next();
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
+exports.isStudent = (req, res, next) => {
+  try {
+    if (req.user !== "Student")
+      return res.status(400).json({ message: "You are unauthorized person" });
     next();
   } catch (error) {
     res.status(400).json({ message: error });
