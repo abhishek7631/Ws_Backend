@@ -16,6 +16,9 @@ function LoginPage() {
     axios
       .post("http://localhost:3034/api/login", { email, password })
       .then((res) => {
+        localStorage.setItem("username", res.data.username);
+        localStorage.setItem("token", res.data.token);
+
         toast.success("Login Successful!");
         setTimeout(() => navigate("/dashboard"), 2000);
       })

@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-// import Dashboard from "./Dashboard";
+import Dashboard from "../Dashboard";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage></LoginPage>} />
         <Route path="/register" element={<RegisterPage></RegisterPage>} />
-        {/* <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route> */}
+        <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
       </Routes>
     </Router>
   );
