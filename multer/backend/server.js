@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const cors = require("cors");
 const app = express();
 
 mongoose
@@ -17,6 +18,9 @@ const biodataSchema = mongoose.Schema({
 });
 
 const Bio = mongoose.model("Bio", biodataSchema);
+
+app.use(cors());
+app.use(express.json());
 
 const port = 4000;
 
