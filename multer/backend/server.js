@@ -27,7 +27,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post("/uploads", upload.single("photo"), (req, res) => {
+app.post("/uploads", upload.single("photo"), async (req, res) => {
+  const { name, age } = req.body;
+  const photo = req.file.path;
+
+  const user = await Bio.create({ name, age, photo });
+
   res.status(200).json({ message: "photo has been uploaded successfully" });
 });
 
