@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "./store/slices/cart";
 import axios from "axios";
-import "./App.css";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 
 function App() {
+  const [product, setProduct] = useState([]);
+
   const getData = async () => {
     const response = await axios.get("https://fakestoreapi.com/products");
-    console.log(response.data);
+    setProduct(response.data);
   };
 
   useEffect(() => {
@@ -20,15 +22,24 @@ function App() {
 
   return (
     <>
-      <h1>Welcome to Redux</h1>
-
-      <button
-        onClick={() => {
-          dispatch(addToCart({ name: "Abhishek" }));
-        }}
-      >
-        Add
-      </button>
+      {product.map((product) => {
+        const { title, id, price, description } = product;
+        return (
+          <div
+            key={id}
+            style={{
+              border: "2px solid black",
+              margin: "10px",
+              padding: "10px",
+            }}
+          >
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <h5>${price}</h5>
+            <button>Add+</button>
+          </div>
+        );
+      })}
     </>
   );
 }
