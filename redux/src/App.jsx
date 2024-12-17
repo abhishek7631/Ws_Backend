@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "./store/slices/cart";
+import { addToCart, removeProduct } from "./store/slices/cart";
 import axios from "axios";
 
 import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
 
 function App() {
   const [product, setProduct] = useState([]);
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <>
+      <Navbar></Navbar>
       {product.map((product) => {
         const { title, id, price, description } = product;
         return (
@@ -36,7 +38,33 @@ function App() {
             <h2>{title}</h2>
             <p>{description}</p>
             <h5>${price}</h5>
-            <button>Add+</button>
+            <button
+              style={{
+                backgroundColor: "green",
+                color: "yellow",
+                padding: "10px",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => dispatch(addToCart(product))}
+            >
+              Add+
+            </button>
+            <button
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                padding: "10px",
+                border: "none",
+                borderRadius: "10px",
+                cursor: "pointer",
+                marginLeft: "10px",
+              }}
+              onClick={() => dispatch(removeProduct(id))}
+            >
+              Remove
+            </button>
           </div>
         );
       })}
