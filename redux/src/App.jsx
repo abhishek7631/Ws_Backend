@@ -17,7 +17,7 @@ function App() {
     getData();
   }, []);
 
-  const cart = useSelector((state) => console.log(state.carts));
+  const cart = useSelector((state) => state.carts);
 
   const dispatch = useDispatch();
 
@@ -38,33 +38,37 @@ function App() {
             <h2>{title}</h2>
             <p>{description}</p>
             <h5>${price}</h5>
-            <button
-              style={{
-                backgroundColor: "green",
-                color: "yellow",
-                padding: "10px",
-                border: "none",
-                borderRadius: "10px",
-                cursor: "pointer",
-              }}
-              onClick={() => dispatch(addToCart(product))}
-            >
-              Add+
-            </button>
-            <button
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                padding: "10px",
-                border: "none",
-                borderRadius: "10px",
-                cursor: "pointer",
-                marginLeft: "10px",
-              }}
-              onClick={() => dispatch(removeProduct(id))}
-            >
-              Remove
-            </button>
+
+            {cart.some((p) => p.id === id) ? (
+              <button
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  padding: "10px",
+                  border: "none",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                }}
+                onClick={() => dispatch(removeProduct(id))}
+              >
+                Remove
+              </button>
+            ) : (
+              <button
+                style={{
+                  backgroundColor: "green",
+                  color: "yellow",
+                  padding: "10px",
+                  border: "none",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                }}
+                onClick={() => dispatch(addToCart(product))}
+              >
+                Add+
+              </button>
+            )}
           </div>
         );
       })}
